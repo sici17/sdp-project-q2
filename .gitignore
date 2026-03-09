@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+.claude/
+.idea/
+output
+# Build output
+dist/
+build/
+
+# Local environment
+.env
+.env.local
+
+# Runtime logs
+*.log
+/gateway-service/data/
+
+# Runtime data is local, but the converted fleet dataset is a committed,
+# deterministic build artifact: services read it read-only and a fresh clone
+# must work without installing the spreadsheet toolchain.
+/data/*
+!/data/arol_q2.sqlite
+!/data/manuals-manifest.json
+
+# Local source material that is not registered in the manual manifest.
+/mcp-servers/doc-mcp/manuals/AROL_GENERAL_CATALOGUE_11.0_EN_20230215.pdf
+
+# Supplied reference catalogue: 24 MB, not consumed by any service. The fleet
+# dataset and the per-machine manuals under requirements/ are tracked because
+# the platform is built from them.
+/requirements/AROL_GENERAL_CATALOGUE_11.0_EN_*.pdf
+
+# Office lock files, created while a document is open.
+~$*

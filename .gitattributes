@@ -1,0 +1,25 @@
+# Normalize text to LF in the repository; Git still checks out CRLF on Windows
+# when core.autocrlf is set. This stops the whole tree from showing as modified
+# when contributors work on different platforms.
+* text=auto
+
+# Keep shell scripts LF so they stay executable inside Linux containers.
+*.sh text eol=lf
+*.bash text eol=lf
+
+# PowerShell and Windows batch wrappers stay CRLF.
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary assets: never diff, never touch line endings.
+*.pdf binary
+*.xlsx binary
+*.pptx binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.sqlite binary
+*.db binary
