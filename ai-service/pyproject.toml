@@ -1,0 +1,52 @@
+[project]
+name = "arol-q2-ai-service"
+version = "0.1.0"
+description = "FastAPI and LangGraph-backed AI orchestrator for the AROL Q2 platform."
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "langgraph>=1.1,<1.2",
+  "pymupdf>=1.24.0",
+  "qdrant-client>=1.12.0",
+  "uvicorn[standard]>=0.30.0",
+  "pydantic>=2.8.0"
+]
+
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"arol_ai.prompts" = ["*.md"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "ruff>=0.6.0"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+# line-length above was decorative until this existed: ruff's default rule set
+# omits E501, so 80 lines sat over the declared limit and the linter reported
+# success. E catches those, F the unused names, I the import order that no
+# formatter was enforcing.
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+# `ruff format` wraps code to line-length above. The lines it cannot wrap are
+# all string literals - operator-facing answer text and prompts - where breaking
+# them means implicit concatenation and a real chance of gaining or losing a
+# space in something a person reads. Those are held to a hard ceiling instead,
+# so the limit still fails a build rather than being decorative.
+[tool.ruff.lint.pycodestyle]
+max-line-length = 120
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
