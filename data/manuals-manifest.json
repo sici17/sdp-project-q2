@@ -1,0 +1,156 @@
+{
+  "manuals": [
+    {
+      "machineId": "MCH-0001",
+      "title": "TS-EURO-PK-TWIN-CHUTE-D - use and maintenance manual, serial 15610",
+      "version": null,
+      "language": "en",
+      "fileName": "15610_manual_EN.pdf",
+      "sourceUri": "/manuals/15610_manual_EN.pdf",
+      "printedPageOffset": 7,
+      "serialNumber": "15610",
+      "machine": {
+        "companyId": "CMP-001",
+        "model": "TS-EURO-PK-TWIN-CHUTE-D",
+        "modelDescription": "Rotary closing machine for pre-threaded plastic screw caps, twin caps chute",
+        "serialNumber": "15610",
+        "plant": "Novara Plant 1 - Bottling Line 3",
+        "configurationProfile": "Twin chute / 20 heads / 40000 bph / 400V-60Hz / PK 314 chuck",
+        "nominalRateBph": 40000
+      }
+    },
+    {
+      "machineId": "MCH-0002",
+      "title": "TSI-EURO-VA-IES-LIGHT - use and maintenance manual, serial 17203",
+      "version": null,
+      "language": "en",
+      "fileName": "17203_manual_EN.pdf",
+      "sourceUri": "/manuals/17203_manual_EN.pdf",
+      "printedPageOffset": 5,
+      "serialNumber": "17203",
+      "machine": {
+        "companyId": "CMP-001",
+        "model": "TSI-EURO-VA-IES-LIGHT",
+        "modelDescription": "Rotary closing machine for aluminium roll-on (ROPP) caps",
+        "serialNumber": "17203",
+        "plant": "Novara Plant 1 - Bottling Line 5",
+        "configurationProfile": "IES Light / 6 heads / 10000 bph / 480V-60Hz / UV cap steriliser",
+        "nominalRateBph": 10000
+      }
+    },
+    {
+      "machineId": "MCH-0003",
+      "title": "TSI-EURO-VA-IES-LIGHT - use and maintenance manual, serial 17579",
+      "version": null,
+      "language": "en",
+      "fileName": "17579_manual_EN.pdf",
+      "sourceUri": "/manuals/17579_manual_EN.pdf",
+      "printedPageOffset": 7,
+      "serialNumber": "17579",
+      "machine": {
+        "companyId": "CMP-001",
+        "model": "TSI-EURO-VA-IES-LIGHT",
+        "modelDescription": "Rotary closing machine for aluminium roll-on (ROPP) caps",
+        "serialNumber": "17579",
+        "plant": "Alessandria Plant 2 - Bottling Line 1",
+        "configurationProfile": "IES Light / 6 heads / 6000 bph / 220V-50Hz",
+        "nominalRateBph": 6000
+      }
+    },
+    {
+      "machineId": "MCH-0004",
+      "title": "M-EURO-VP-IES - use and maintenance manual, serial 17478",
+      "version": null,
+      "language": "en",
+      "fileName": "17478_manual_EN.pdf",
+      "sourceUri": "/manuals/17478_manual_EN.pdf",
+      "printedPageOffset": 11,
+      "serialNumber": "17478",
+      "machine": {
+        "companyId": "CMP-003",
+        "model": "M-EURO-VP-IES",
+        "modelDescription": "Closing machine for pre-threaded screw caps with closure gripper",
+        "serialNumber": "17478",
+        "plant": "Zaragoza Plant 1 - Filling Suite B",
+        "configurationProfile": "IES / 3 heads / 4500 bph / 220V-60Hz / SIMATIC HMI + PROFIBUS",
+        "nominalRateBph": 4500
+      }
+    },
+    {
+      "machineId": "MCH-0005",
+      "title": "TSI-CLOSYS-EAGLE-PK - use and maintenance manual, serial A4344",
+      "version": null,
+      "language": "en",
+      "fileName": "A4344_manual_EN.pdf",
+      "sourceUri": "/manuals/A4344_manual_EN.pdf",
+      "printedPageOffset": 7,
+      "serialNumber": "A4344",
+      "machine": {
+        "companyId": "CMP-003",
+        "model": "TSI-CLOSYS-EAGLE-PK",
+        "modelDescription": "Single-head automatic closing machine for pre-threaded plastic caps",
+        "serialNumber": "A4344",
+        "plant": "Zaragoza Plant 1 - Filling Suite A",
+        "configurationProfile": "Single head / 410 mm star-wheel / 1200 bph / 480V-60Hz",
+        "nominalRateBph": 1200
+      }
+    },
+    {
+      "machineId": "MCH-0006",
+      "title": "EAGLE-PK-TURRET - use and maintenance manual, serial A2064",
+      "version": null,
+      "language": "en",
+      "fileName": "A2064_manual_EN.pdf",
+      "sourceUri": "/manuals/A2064_manual_EN.pdf",
+      "printedPageOffset": 0,
+      "serialNumber": "A2064",
+      "machine": {
+        "companyId": "CMP-004",
+        "model": "EAGLE-PK-TURRET",
+        "modelDescription": "Single-head automatic turret for pre-threaded plastic screw caps",
+        "serialNumber": "A2064",
+        "plant": "Glasgow Plant 1 - Line 2",
+        "configurationProfile": "Single head turret / 3000 bph / 380V-50Hz / PET 500 ml",
+        "nominalRateBph": 3000
+      }
+    },
+    {
+      "machineId": "MCH-0007",
+      "title": "EAGLE-VA-TURRET - use and maintenance manual, serial A2055",
+      "version": null,
+      "language": "en",
+      "fileName": "A2055_manual_EN.pdf",
+      "sourceUri": "/manuals/A2055_manual_EN.pdf",
+      "printedPageOffset": 0,
+      "serialNumber": "A2055",
+      "machine": {
+        "companyId": "CMP-002",
+        "model": "EAGLE-VA-TURRET",
+        "modelDescription": "Single-head automatic turret for aluminium and pressure caps",
+        "serialNumber": "A2055",
+        "plant": "Saintes Plant 1 - Bottling Hall A",
+        "configurationProfile": "Single head turret / 3000 bph / 380V-50Hz / aluminium cap, glass 500 ml",
+        "nominalRateBph": 3000
+      }
+    },
+    {
+      "machineId": "MCH-0008",
+      "title": "EAGLE-VA-TURRET - use and maintenance manual, serial A2132",
+      "version": null,
+      "language": "en",
+      "fileName": "A2132_manual_EN.pdf",
+      "sourceUri": "/manuals/A2132_manual_EN.pdf",
+      "printedPageOffset": 0,
+      "serialNumber": "A2132",
+      "machine": {
+        "companyId": "CMP-002",
+        "model": "EAGLE-VA-TURRET",
+        "modelDescription": "Single-head automatic turret for aluminium and pressure caps",
+        "serialNumber": "A2132",
+        "plant": "Saintes Plant 1 - Bottling Hall B",
+        "configurationProfile": "Single head turret / 3000 bph / 380V-50Hz / pressure cap 33x60, glass",
+        "nominalRateBph": 3000
+      }
+    }
+  ]
+}
