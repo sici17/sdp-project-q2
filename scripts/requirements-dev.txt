@@ -1,0 +1,10 @@
+# Development-only dependencies for repository tooling.
+#
+# Needed to rebuild data/arol_q2.sqlite from the supplied workbook:
+#     python -m pip install -r scripts/requirements-dev.txt
+#     python scripts/convert_dataset.py
+#
+# Not required to run the platform, and not installed into any service image:
+# the generated database is committed, and `convert_dataset.py --check`
+# validates it using only the Python standard library.
+openpyxl==3.1.5
