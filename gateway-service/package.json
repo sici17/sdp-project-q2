@@ -1,0 +1,14 @@
+{
+  "name": "arol-q2-gateway-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --experimental-sqlite src/server.js",
+    "start": "node --experimental-sqlite src/server.js",
+    "check": "node scripts/check-syntax.mjs && node --experimental-sqlite --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
