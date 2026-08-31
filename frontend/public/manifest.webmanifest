@@ -1,0 +1,35 @@
+{
+  "name": "AROL Q2 Service Assist",
+  "short_name": "Service Assist",
+  "description": "PDF-first AROL Q2 machine assistant for QR-linked troubleshooting.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f7f8",
+  "theme_color": "#b3261e",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open demo machine",
+      "short_name": "Demo",
+      "description": "Open the demo machine manual and assistant.",
+      "url": "/m/euro-vp-2019-01",
+      "icons": [{ "src": "/pwa-icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}
