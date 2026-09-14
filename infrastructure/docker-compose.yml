@@ -1,0 +1,307 @@
+services:
+  frontend:
+    build:
+      context: ../frontend
+    ports:
+      # The browser talks to the gateway through the frontend's same-origin
+      # reverse proxy. Keep this listener LAN-accessible for the QR/mobile demo.
+      - "${FRONTEND_BIND_ADDRESS:-0.0.0.0}:5173:8080"
+    depends_on:
+      gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/ >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+  gateway:
+    build:
+      context: ../gateway-service
+    environment:
+      PORT: 8080
+      NODE_OPTIONS: --experimental-sqlite
+      AI_SERVICE_URL: http://ai-service:8000
+      AI_SERVICE_TIMEOUT_MS: ${AI_SERVICE_TIMEOUT_MS:-200000}
+      AI_SERVICE_STREAM_CONNECT_TIMEOUT_MS: 10000
+      AI_SERVICE_STREAM_IDLE_TIMEOUT_MS: ${AI_SERVICE_STREAM_IDLE_TIMEOUT_MS:-200000}
+      AI_SERVICE_SHARED_SECRET: ${AI_SERVICE_SHARED_SECRET:-local-only-change-me}
+      AI_SERVICE_SHARED_SECRETS: ${AI_SERVICE_SHARED_SECRETS:-}
+      GATEWAY_CSRF_SECRET: ${GATEWAY_CSRF_SECRET:-local-only-change-me}
+      GATEWAY_TRUST_PROXY_HOPS: 1
+      TELEMETRY_SERVICE_URL: http://telemetry-mcp:8090
+      # The gateway reads telemetry directly as well as through the AI service,
+      # and Telemetry MCP authenticates every call. Without this the gateway's
+      # own telemetry and alarm routes answer 502 on a 401, which shows up in
+      # the operator console as a machine with no readings.
+      MCP_SHARED_SECRET: ${MCP_SHARED_SECRET:-local-mcp-only-change-me}
+      CORS_ORIGIN: ${PUBLIC_ORIGIN:-http://localhost:5173}
+      GATEWAY_HSTS: ${GATEWAY_HSTS:-false}
+      MANUALS_DIR: /manuals
+      MANUALS_MANIFEST_PATH: /dataset/manuals-manifest.json
+      DATASET_DB_PATH: /dataset/arol_q2.sqlite
+      PLATFORM_TODAY: ${PLATFORM_TODAY:-2026-08-05}
+      OPERATIONS_DATA_DIR: /operations
+      OPERATIONS_DB_PATH: /operations/operations.sqlite
+      AUDIT_RETENTION_DAYS: 365
+      ALERT_RETENTION_DAYS: 90
+      GATEWAY_AUTH_MODE: ${GATEWAY_AUTH_MODE:-demo}
+      GATEWAY_MACHINE_IDS: ${GATEWAY_MACHINE_IDS:-}
+      GATEWAY_AUTH_COOKIE_NAME: ${GATEWAY_AUTH_COOKIE_NAME:-arol_q2_demo_access}
+      GATEWAY_AUTH_COOKIE_SECURE: ${GATEWAY_AUTH_COOKIE_SECURE:-false}
+      GATEWAY_AUTH_DEMO_USER_ID: ${GATEWAY_AUTH_DEMO_USER_ID:-USR-011}
+      GATEWAY_AUTH_DEMO_ROLES: ${GATEWAY_AUTH_DEMO_ROLES:-operator}
+      GATEWAY_AUTH_DEMO_MACHINE_IDS: ${GATEWAY_AUTH_DEMO_MACHINE_IDS:-}
+      GATEWAY_AUTH_DEMO_TOKEN_TTL_SECONDS: ${GATEWAY_AUTH_DEMO_TOKEN_TTL_SECONDS:-28800}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
+      OIDC_JWKS_URI: ${OIDC_JWKS_URI:-}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      OIDC_REDIRECT_URI: ${OIDC_REDIRECT_URI:-http://localhost:5173/api/v1/auth/callback}
+      OIDC_POST_LOGOUT_REDIRECT_URI: ${OIDC_POST_LOGOUT_REDIRECT_URI:-http://localhost:5173/api/v1/auth/post-logout-callback}
+      OIDC_SCOPES: ${OIDC_SCOPES:-openid,profile,email}
+      OIDC_STATE_COOKIE_NAME: ${OIDC_STATE_COOKIE_NAME:-__Host-arol_q2_oidc_state}
+      OIDC_LOGOUT_STATE_COOKIE_NAME: ${OIDC_LOGOUT_STATE_COOKIE_NAME:-__Host-arol_q2_oidc_logout}
+      OIDC_LOGIN_STATE_TTL_SECONDS: ${OIDC_LOGIN_STATE_TTL_SECONDS:-600}
+      OIDC_REQUEST_TIMEOUT_MS: ${OIDC_REQUEST_TIMEOUT_MS:-5000}
+      GATEWAY_AUTH_SESSION_TTL_SECONDS: ${GATEWAY_AUTH_SESSION_TTL_SECONDS:-28800}
+      GATEWAY_AUTH_SESSION_REFRESH_WINDOW_SECONDS: ${GATEWAY_AUTH_SESSION_REFRESH_WINDOW_SECONDS:-120}
+      OIDC_ALLOWED_ALGORITHMS: ${OIDC_ALLOWED_ALGORITHMS:-RS256}
+      OIDC_MACHINE_IDS_CLAIM: ${OIDC_MACHINE_IDS_CLAIM:-machine_ids}
+      OIDC_ROLES_CLAIM: ${OIDC_ROLES_CLAIM:-roles}
+      OIDC_ADMIN_ROLES: ${OIDC_ADMIN_ROLES:-arol-admin,arol-support}
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ../requirements/manuals:/manuals:ro
+      - ../data:/dataset:ro
+      - gateway-operations:/operations
+    depends_on:
+      ai-service:
+        condition: service_healthy
+      telemetry-mcp:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/ready').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 45s
+
+  ai-service:
+    build:
+      context: ../ai-service
+    environment:
+      MANUALS_DIR: /manuals
+      MANUALS_MANIFEST_PATH: /dataset/manuals-manifest.json
+      DATASET_DB_PATH: /dataset/arol_q2.sqlite
+      PLATFORM_TODAY: ${PLATFORM_TODAY:-2026-08-05}
+      CORS_ORIGIN: ${PUBLIC_ORIGIN:-http://localhost:5173}
+      DEFAULT_MACHINE_ID: ${DEFAULT_MACHINE_ID:-MCH-0004}
+      TELEMETRY_SERVICE_URL: http://telemetry-mcp:8090
+      DOC_MCP_URL: http://doc-mcp:8092
+      BUSINESS_MCP_URL: http://business-mcp:8091
+      MCP_SHARED_SECRET: ${MCP_SHARED_SECRET:-local-mcp-only-change-me}
+      TELEMETRY_STALE_SECONDS: ${TELEMETRY_STALE_SECONDS:-900}
+      SESSION_TTL_SECONDS: 28800
+      AI_SERVICE_SHARED_SECRET: ${AI_SERVICE_SHARED_SECRET:-local-only-change-me}
+      AI_SERVICE_SHARED_SECRETS: ${AI_SERVICE_SHARED_SECRETS:-}
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_CHAT_MODEL: ${OLLAMA_CHAT_MODEL:-qwen2.5:3b-instruct}
+      AZURE_OPENAI_ENDPOINT: ${AZURE_OPENAI_ENDPOINT:-}
+      AZURE_OPENAI_DEPLOYMENT: ${AZURE_OPENAI_DEPLOYMENT:-}
+      AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY:-}
+      AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION:-2024-10-21}
+      DOC_RAG_ENABLED: "true"
+      QDRANT_URL: http://qdrant:6333
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-nomic-embed-text}
+      DOC_COLLECTION: manual_chunks
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ../requirements/manuals:/manuals:ro
+      - ../data:/dataset:ro
+    depends_on:
+      telemetry-mcp:
+        condition: service_healthy
+      business-mcp:
+        condition: service_healthy
+      doc-mcp:
+        condition: service_healthy
+      manual-indexer:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2).read()"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 45s
+
+  manual-indexer:
+    build:
+      context: ../ai-service
+    # No --reset. Resetting on every start destroyed a complete index and
+    # rebuilt it from scratch - twelve minutes each time, and any failure threw
+    # away everything indexed before it. The ingester skips manuals already in
+    # the collection, so a restart after a transient failure now costs only the
+    # manual that failed. Set DOC_INGEST_RESET=1 to force a full rebuild, which
+    # is what the chunker or embedding model changing calls for.
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -eu
+        if [ "$${DOC_INGEST_RESET:-0}" = "1" ]; then
+          exec python -m arol_ai.rag.ingest --reset
+        fi
+        exec python -m arol_ai.rag.ingest
+    environment:
+      MANUALS_DIR: /manuals
+      MANUALS_MANIFEST_PATH: /dataset/manuals-manifest.json
+      DATASET_DB_PATH: /dataset/arol_q2.sqlite
+      PLATFORM_TODAY: ${PLATFORM_TODAY:-2026-08-05}
+      QDRANT_URL: http://qdrant:6333
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-nomic-embed-text}
+      OLLAMA_EMBED_TIMEOUT_SECONDS: ${OLLAMA_EMBED_TIMEOUT_SECONDS:-180}
+      DOC_INGEST_RESET: ${DOC_INGEST_RESET:-0}
+      DOC_COLLECTION: manual_chunks
+    volumes:
+      - ../requirements/manuals:/manuals:ro
+      - ../data:/dataset:ro
+    depends_on:
+      qdrant-ready:
+        condition: service_completed_successfully
+      ollama-pull:
+        condition: service_completed_successfully
+    restart: "no"
+
+  telemetry-mcp:
+    build:
+      context: ../mcp-servers/telemetry-mcp
+    environment:
+      PORT: 8090
+      MCP_SHARED_SECRET: ${MCP_SHARED_SECRET:-local-mcp-only-change-me}
+      DATASET_DB_PATH: /dataset/arol_q2.sqlite
+      PLATFORM_TODAY: ${PLATFORM_TODAY:-2026-08-05}
+    ports:
+      - "127.0.0.1:8090:8090"
+    volumes:
+      - ../data:/dataset:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, urllib.request; request = urllib.request.Request('http://127.0.0.1:8090/ready', headers={'X-Arol-Mcp-Secret': os.environ['MCP_SHARED_SECRET']}); urllib.request.urlopen(request, timeout=2).read()"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+  business-mcp:
+    build:
+      context: ../mcp-servers/business-mcp
+    environment:
+      PORT: 8091
+      MCP_SHARED_SECRET: ${MCP_SHARED_SECRET:-local-mcp-only-change-me}
+      DATASET_DB_PATH: /dataset/arol_q2.sqlite
+      PLATFORM_TODAY: ${PLATFORM_TODAY:-2026-08-05}
+    ports:
+      - "127.0.0.1:8091:8091"
+    volumes:
+      - ../data:/dataset:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, urllib.request; request = urllib.request.Request('http://127.0.0.1:8091/ready', headers={'X-Arol-Mcp-Secret': os.environ['MCP_SHARED_SECRET']}); urllib.request.urlopen(request, timeout=2).read()"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+  doc-mcp:
+    build:
+      context: ../mcp-servers/doc-mcp
+    environment:
+      PORT: 8092
+      MCP_SHARED_SECRET: ${MCP_SHARED_SECRET:-local-mcp-only-change-me}
+      QDRANT_URL: http://qdrant:6333
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-nomic-embed-text}
+      DOC_COLLECTION: manual_chunks
+    ports:
+      - "127.0.0.1:8092:8092"
+    depends_on:
+      qdrant-ready:
+        condition: service_completed_successfully
+      ollama-pull:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, urllib.request; request = urllib.request.Request('http://127.0.0.1:8092/ready', headers={'X-Arol-Mcp-Secret': os.environ['MCP_SHARED_SECRET']}); urllib.request.urlopen(request, timeout=2).read()"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      # Readiness here means Qdrant and the embedding model are both usable, so
+      # the first probes fail while the model is still being pulled. Without
+      # this window those failures spend the retry budget and everything that
+      # depends on Doc MCP is abandoned.
+      start_period: 90s
+
+  qdrant:
+    image: qdrant/qdrant@sha256:1cf3e07c9f269030c7cfed0d5c0beea7bb081848a88e2ae13b35a613d4dd5019
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  qdrant-ready:
+    image: curlimages/curl@sha256:b3f1fb2a51d923260350d21b8654bbc607164a987e2f7c84a0ac199a67df812a
+    command: ["sh", "-c", "until curl -fsS http://qdrant:6333/readyz >/dev/null; do sleep 1; done"]
+    depends_on:
+      qdrant:
+        condition: service_started
+
+  ollama:
+    image: ollama/ollama@sha256:d00473cb58f0082c07cd6ed0d326a8a86f443ab69c51f8fc2b1a41687d45c661
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  ollama-pull:
+    image: ollama/ollama@sha256:d00473cb58f0082c07cd6ed0d326a8a86f443ab69c51f8fc2b1a41687d45c661
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-nomic-embed-text}
+      OLLAMA_CHAT_MODEL: ${OLLAMA_CHAT_MODEL:-qwen2.5:3b-instruct}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        # A few hundred megabytes over someone else's network. One failed
+        # attempt should not take the whole stack down with it, and a model
+        # already in the volume makes the retry immediate.
+        pull() {
+          for attempt in 1 2 3; do
+            if ollama pull "$$1"; then
+              return 0
+            fi
+            echo "pull of $$1 failed (attempt $$attempt), retrying" >&2
+            sleep $$((attempt * 5))
+          done
+          echo "giving up on $$1 after 3 attempts" >&2
+          return 1
+        }
+        pull "$${OLLAMA_EMBED_MODEL}"
+        if [ "$${LLM_PROVIDER}" = "ollama" ]; then
+          pull "$${OLLAMA_CHAT_MODEL}"
+        fi
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+volumes:
+  qdrant-data:
+  ollama-data:
+  gateway-operations:
