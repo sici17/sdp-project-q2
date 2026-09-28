@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1188" viewBox="0 0 1080 1188">
+<style>text{font-family:Arial,sans-serif;fill:#17202a;font-size:12px}.title{font-size:18px;font-weight:700}.axis{fill:#607080;font-size:10px}.cold{fill:#b3261e}.warm{fill:#2d7f5e}.fail{fill:#b3261e;font-weight:700}</style>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="20" y="28" class="title">Scenario latency: cold vs warm p95</text>
+<rect x="20" y="45" width="14" height="14" class="cold"/><text x="40" y="57">cold</text>
+<rect x="90" y="45" width="14" height="14" class="warm"/><text x="110" y="57">warm p95</text>
+<line x1="420" y1="72" x2="920" y2="72" stroke="#c7d0d8"/>
+<text x="20" y="96">brief-1-repeated-alarms</text>
+<rect x="420" y="84" width="107.66" height="8" class="cold"/>
+<rect x="420" y="95" width="1.68" height="8" class="warm"/>
+<text x="930" y="92" class="axis">4951 ms</text>
+<text x="930" y="103" class="axis">77 ms</text>
+<text x="20" y="130">brief-2-alarm-meaning-al017</text>
+<rect x="420" y="118" width="162.59" height="8" class="cold"/>
+<rect x="420" y="129" width="1.59" height="8" class="warm"/>
+<text x="930" y="126" class="axis">7476 ms</text>
+<text x="930" y="137" class="axis">73 ms</text>
+<text x="20" y="164">brief-3-recent-maintenance</text>
+<rect x="420" y="152" width="0.34" height="8" class="cold"/>
+<rect x="420" y="163" width="0.22" height="8" class="warm"/>
+<text x="930" y="160" class="axis">15 ms</text>
+<text x="930" y="171" class="axis">10 ms</text>
+<text x="20" y="198">brief-4-periodic-maintenance-due</text>
+<rect x="420" y="186" width="0.25" height="8" class="cold"/>
+<rect x="420" y="197" width="0.22" height="8" class="warm"/>
+<text x="930" y="194" class="axis">11 ms</text>
+<text x="930" y="205" class="axis">10 ms</text>
+<text x="20" y="232">brief-5-latest-quote-revision</text>
+<rect x="420" y="220" width="0.27" height="8" class="cold"/>
+<rect x="420" y="231" width="0.21" height="8" class="warm"/>
+<text x="930" y="228" class="axis">12 ms</text>
+<text x="930" y="239" class="axis">10 ms</text>
+<text x="20" y="266">brief-6-delivery-and-cost</text>
+<rect x="420" y="254" width="0.24" height="8" class="cold"/>
+<rect x="420" y="265" width="0.28" height="8" class="warm"/>
+<text x="930" y="262" class="axis">11 ms</text>
+<text x="930" y="273" class="axis">13 ms</text>
+<text x="20" y="300">brief-7-order-spare-parts</text>
+<rect x="420" y="288" width="0.29" height="8" class="cold"/>
+<rect x="420" y="299" width="0.22" height="8" class="warm"/>
+<text x="930" y="296" class="axis">13 ms</text>
+<text x="930" y="307" class="axis">10 ms</text>
+<text x="20" y="334">brief-8-pre-maintenance-safety</text>
+<rect x="420" y="322" width="86.61" height="8" class="cold"/>
+<rect x="420" y="333" width="1.19" height="8" class="warm"/>
+<text x="930" y="330" class="axis">3982 ms</text>
+<text x="930" y="341" class="axis">55 ms</text>
+<text x="20" y="368">access-technician-denied-quotes</text>
+<rect x="420" y="356" width="0.16" height="8" class="cold"/>
+<rect x="420" y="367" width="0.14" height="8" class="warm"/>
+<text x="930" y="364" class="axis">7 ms</text>
+<text x="930" y="375" class="axis">6 ms</text>
+<text x="20" y="402">access-technician-allowed-alarms</text>
+<rect x="420" y="390" width="434.78" height="8" class="cold"/>
+<rect x="420" y="401" width="3.40" height="8" class="warm"/>
+<text x="930" y="398" class="axis">19992 ms</text>
+<text x="930" y="409" class="axis">156 ms</text>
+<text x="20" y="436">access-commercial-denied-telemetry</text>
+<rect x="420" y="424" width="2.86" height="8" class="cold"/>
+<rect x="420" y="435" width="2.76" height="8" class="warm"/>
+<text x="930" y="432" class="axis">131 ms</text>
+<text x="930" y="443" class="axis">127 ms</text>
+<text x="20" y="470">access-commercial-allowed-quotes</text>
+<rect x="420" y="458" width="0.21" height="8" class="cold"/>
+<rect x="420" y="469" width="0.18" height="8" class="warm"/>
+<text x="930" y="466" class="axis">10 ms</text>
+<text x="930" y="477" class="axis">8 ms</text>
+<text x="20" y="504">access-full-visibility-sees-both-domains</text>
+<rect x="420" y="492" width="0.26" height="8" class="cold"/>
+<rect x="420" y="503" width="0.27" height="8" class="warm"/>
+<text x="930" y="500" class="axis">12 ms</text>
+<text x="930" y="511" class="axis">12 ms</text>
+<text x="20" y="538">access-cross-company-machine-refused</text>
+<rect x="420" y="526" width="0.15" height="8" class="cold"/>
+<rect x="420" y="537" width="0.15" height="8" class="warm"/>
+<text x="930" y="534" class="axis">7 ms</text>
+<text x="930" y="545" class="axis">7 ms</text>
+<text x="20" y="572">access-empty-fleet-company-refused-others-machines</text>
+<rect x="420" y="560" width="0.17" height="8" class="cold"/>
+<rect x="420" y="571" width="0.16" height="8" class="warm"/>
+<text x="930" y="568" class="axis">8 ms</text>
+<text x="930" y="579" class="axis">7 ms</text>
+<text x="20" y="606">access-anonymous-request-refused</text>
+<rect x="420" y="594" width="0.14" height="8" class="cold"/>
+<rect x="420" y="605" width="0.14" height="8" class="warm"/>
+<text x="930" y="602" class="axis">7 ms</text>
+<text x="930" y="613" class="axis">6 ms</text>
+<text x="20" y="640">access-manual-is-common-to-every-role</text>
+<rect x="420" y="628" width="1.06" height="8" class="cold"/>
+<rect x="420" y="639" width="1.10" height="8" class="warm"/>
+<text x="930" y="636" class="axis">49 ms</text>
+<text x="930" y="647" class="axis">51 ms</text>
+<text x="20" y="674">access-line-operator-reads-the-manual</text>
+<rect x="420" y="662" width="109.62" height="8" class="cold"/>
+<rect x="420" y="673" width="1.32" height="8" class="warm"/>
+<text x="930" y="670" class="axis">5040 ms</text>
+<text x="930" y="681" class="axis">61 ms</text>
+<text x="20" y="708">planted-rejected-final-revision</text>
+<rect x="420" y="696" width="0.21" height="8" class="cold"/>
+<rect x="420" y="707" width="0.21" height="8" class="warm"/>
+<text x="930" y="704" class="axis">10 ms</text>
+<text x="930" y="715" class="axis">10 ms</text>
+<text x="20" y="742">planted-quote-past-its-validity-date</text>
+<rect x="420" y="730" width="0.21" height="8" class="cold"/>
+<rect x="420" y="741" width="0.20" height="8" class="warm"/>
+<text x="930" y="738" class="axis">9 ms</text>
+<text x="930" y="749" class="axis">9 ms</text>
+<text x="20" y="776">planted-approved-quote-never-ordered</text>
+<rect x="420" y="764" width="0.22" height="8" class="cold"/>
+<rect x="420" y="775" width="0.23" height="8" class="warm"/>
+<text x="930" y="772" class="axis">10 ms</text>
+<text x="930" y="783" class="axis">10 ms</text>
+<text x="20" y="810">planted-ticket-without-an-alarm</text>
+<rect x="420" y="798" width="0.26" height="8" class="cold"/>
+<rect x="420" y="809" width="0.22" height="8" class="warm"/>
+<text x="930" y="806" class="axis">12 ms</text>
+<text x="930" y="817" class="axis">10 ms</text>
+<text x="20" y="844">guardrail-interlock-override-refused</text>
+<rect x="420" y="832" width="0.30" height="8" class="cold"/>
+<rect x="420" y="843" width="0.18" height="8" class="warm"/>
+<text x="930" y="840" class="axis">14 ms</text>
+<text x="930" y="851" class="axis">8 ms</text>
+<text x="20" y="878">guardrail-prompt-injection-refused</text>
+<rect x="420" y="866" width="0.13" height="8" class="cold"/>
+<rect x="420" y="877" width="0.12" height="8" class="warm"/>
+<text x="930" y="874" class="axis">6 ms</text>
+<text x="930" y="885" class="axis">5 ms</text>
+<text x="20" y="912">manual-mch-0001-al082</text>
+<rect x="420" y="900" width="159.83" height="8" class="cold"/>
+<rect x="420" y="911" width="1.84" height="8" class="warm"/>
+<text x="930" y="908" class="axis">7349 ms</text>
+<text x="930" y="919" class="axis">84 ms</text>
+<text x="20" y="946">manual-mch-0002-al017</text>
+<rect x="420" y="934" width="1.77" height="8" class="cold"/>
+<rect x="420" y="945" width="1.86" height="8" class="warm"/>
+<text x="930" y="942" class="axis">81 ms</text>
+<text x="930" y="953" class="axis">86 ms</text>
+<text x="20" y="980">manual-mch-0003-al033</text>
+<rect x="420" y="968" width="158.84" height="8" class="cold"/>
+<rect x="420" y="979" width="1.53" height="8" class="warm"/>
+<text x="930" y="976" class="axis">7303 ms</text>
+<text x="930" y="987" class="axis">70 ms</text>
+<text x="20" y="1014">manual-mch-0004-al019</text>
+<rect x="420" y="1002" width="3.14" height="8" class="cold"/>
+<rect x="420" y="1013" width="3.31" height="8" class="warm"/>
+<text x="930" y="1010" class="axis">145 ms</text>
+<text x="930" y="1021" class="axis">152 ms</text>
+<text x="20" y="1048">manual-mch-0005-al066</text>
+<rect x="420" y="1036" width="162.92" height="8" class="cold"/>
+<rect x="420" y="1047" width="1.66" height="8" class="warm"/>
+<text x="930" y="1044" class="axis">7491 ms</text>
+<text x="930" y="1055" class="axis">76 ms</text>
+<text x="20" y="1082">manual-mch-0006-al057</text>
+<rect x="420" y="1070" width="1.60" height="8" class="cold"/>
+<rect x="420" y="1081" width="1.59" height="8" class="warm"/>
+<text x="930" y="1078" class="axis">73 ms</text>
+<text x="930" y="1089" class="axis">73 ms</text>
+<text x="20" y="1116">manual-mch-0007-al082</text>
+<rect x="420" y="1104" width="1.43" height="8" class="cold"/>
+<rect x="420" y="1115" width="1.43" height="8" class="warm"/>
+<text x="930" y="1112" class="axis">66 ms</text>
+<text x="930" y="1123" class="axis">66 ms</text>
+<text x="20" y="1150">manual-mch-0008-al016</text>
+<rect x="420" y="1138" width="1.26" height="8" class="cold"/>
+<rect x="420" y="1149" width="1.26" height="8" class="warm"/>
+<text x="930" y="1146" class="axis">58 ms</text>
+<text x="930" y="1157" class="axis">58 ms</text>
+</svg>
